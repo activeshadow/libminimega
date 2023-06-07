@@ -67,7 +67,7 @@ func AddLogger(name string, output io.Writer, level Level, color bool) {
 
 // AddCustomLogger adds a logger that implements the logger interface set to log
 // only events at level specified or higher.
-func AddCustomLogger(name string logger logger, level Level, color bool) {
+func AddCustomLogger(name string, logger logger, level Level, color bool) {
 	logLock.Lock()
 	defer logLock.Unlock()
 
