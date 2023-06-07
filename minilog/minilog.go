@@ -65,6 +65,19 @@ func AddLogger(name string, output io.Writer, level Level, color bool) {
 	loggers[name] = &minilogger{golog.New(output, "", golog.LstdFlags), level, color, nil}
 }
 
+// AddCustomLogger adds a logger that implements the logger interface set to log
+// only events at level specified or higher.
+func AddCustomLogger(name string logger logger, level Level, color bool) {
+	logLock.Lock()
+	defer logLock.Unlock()
+
+	loggers[name] = &minilogger{
+    logger: logger,
+    Level:  level,
+    Color:  color,
+  }
+}
+
 func AddLogRing(name string, l *Ring, level Level) {
 	logLock.Lock()
 	defer logLock.Unlock()
